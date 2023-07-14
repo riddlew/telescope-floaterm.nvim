@@ -18,7 +18,7 @@ local function create_finder()
 	for _, v in ipairs(bufs) do
 		table.insert(results, {
 			name = vim.fn['floaterm#window#make_title'](v, '$1'),
-			title = vim.fn.getbufvar(v, 'floaterm_title'),
+			title = vim.fn['floaterm#window#make_title'](v, vim.fn.getbufvar(v, 'floaterm_title')),
 			buffer = v,
 			-- type = 'floaterm'
 		})
@@ -49,9 +49,8 @@ local function create_finder()
 			end
 			return {
 				value = entry,
-				ordinal = entry.name,
-				name = entry.name,
-				path = entry.path,
+				ordinal = entry.name .. ' ' .. entry.title,
+				name = entry.name .. ' ' .. entry.title,
 				display = make_display,
 			}
 		end,
